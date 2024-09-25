@@ -50,18 +50,18 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_KEY }}
 
-      - name: Build ${{ vars.GITHUB_REPOSITORY }}
+      - name: Build ${{ github.repository }}
         uses: docker/build-push-action@v6
         with:
           load: true
           context: .
           tags: |
-            ${{ vars.GITHUB_REPOSITORY }}:test
+            ${{ github.repository }}:test
           push: false
 
       - name: Test container
         run: |
-          docker run --rm ${{ vars.GITHUB_REPOSITORY }}:test
+          docker run --rm ${{ github.repository }}:test
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
