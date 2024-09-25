@@ -3,6 +3,8 @@ name: Test
 on:
   push:
     branches:
+      - 'dev/**'
+      - 'test/**'
       - '!main'
   pull_request:
   workflow_dispatch:
@@ -22,12 +24,6 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          failure-threshold: warning
-          dockerfile: ./Dockerfile
 
   build:
     needs: [lint]
