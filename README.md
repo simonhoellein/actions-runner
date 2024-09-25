@@ -1,14 +1,28 @@
-# Multi-Platform docker images
+# Github Actions Runner
 
-This is a template for building multi-platform docker images with a github actions CI/CD Pipeline and pushing them to docker-hub
+Following arguments need to be parsed to the container:
 
-## How to use this?
+- `REPO` for the Repository e.g. `simonhoellein/actions-runner`
+- `ACCESS_TOKEN` for a Personal Access Token with access to `repo`, `workflow`, and `admin:org` scopes
 
-1. Create a new repo with this template
-2. Create a Repository Secret `DOCKER_KEY` for your docker-hub API Key
-3. Create a Repository Variable `DOCKER_USER` for your docker username
-4. Create a dockerfile in the root of this repo and let the pipeline build and push it :)
+Deploy this with Docker Compose:
 
-## Info
-
-- The pipelines uses the variable `GITHUB_REPOSITORY` as a value for things like the docker image and push destination. This works as long as your github username is the same as the username in docker-hub. The benefit of doing this is, that you don't have to edit the pipeline at all because the name for the docker images is determined by the repo name in github. For example: If I create a repo called `simonhoellein/actions-runner` the docker image will be published to <https://hub.docker.com/r/simonhoellein/actions-runner>.
+```yaml
+services:
+  actions-runner-ci:
+    image: simonhoellein/actions-runner:latest
+    restart: always
+    environment:
+      - REPO=[user/repository]
+      - ACCESS_TOKEN=[Github Access Token]
+    deploy:
+      mode: replicated
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.35'
+          memory: 300M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+```
