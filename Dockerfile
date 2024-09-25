@@ -1,5 +1,5 @@
 # base
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 
 # set the github runner version
 ARG RUNNER_VERSION="2.319.1"
