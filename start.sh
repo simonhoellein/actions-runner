@@ -7,7 +7,7 @@ REG_TOKEN=$(curl -sL -X POST -H "Accept: application/vnd.github+json" -H "Author
 
 cd /home/docker/actions-runner
 
-./config.sh --url https://github.com/${REPO} --token ${REG_TOKEN}
+./config.sh --url https://github.com/${REPO} --token ${REG_TOKEN} --disableupdate
 
 cleanup() {
     echo "Removing runner..."

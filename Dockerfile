@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 # set the github runner version
-ARG RUNNER_VERSION="2.319.1"
+ARG RUNNER_VERSION="2.320.0"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
