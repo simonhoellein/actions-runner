@@ -51,7 +51,7 @@ jobs:
           password: ${{ secrets.DOCKER_KEY }}
 
       - name: Build ${{ github.repository }}
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           load: true
           context: .
